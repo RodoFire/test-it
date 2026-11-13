@@ -24,6 +24,6 @@
             </column>
         </createTable>
         <addForeignKeyConstraint baseTableName="book" baseColumnNames="borrower_id" referencedTableName="member" referencedColumnNames="id" constraintName="borrower_id"/>
-        <createSequence sequenceName="id"/>
+        <createSequence sequenceName="book_seq" incrementBy="50"/>
     </changeSet>
 </databaseChangeLog>

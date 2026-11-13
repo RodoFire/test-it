@@ -65,7 +65,7 @@ public class BookService {
             throw new IllegalStateException("Book can only be borrowed if status is DISPONIBLE");
         }
         // Vérifier si le membre a déjà un livre EMPRUNTE
-        List<Book> ongoingLoans = bookRepository.findByMemberAndStatus(memberId, Status.RENDU);
+        List<Book> ongoingLoans = bookRepository.findByMemberAndStatus(memberId, Status.EMPRUNTE);
         if (!ongoingLoans.isEmpty()) {
             throw new IllegalStateException("Member cannot borrow more than one book at a time");
         }
@@ -76,9 +76,7 @@ public class BookService {
     }
 
     public Book returnBook(Long bookId, Long memberId) {
-        if(bookId == null && memberId == null) throw new IllegalArgumentException("Book ID and Member ID cannot be null");
         if (bookId == null) throw new IllegalArgumentException("Book ID cannot be null");
-        if (memberId == null) throw new IllegalArgumentException("Member ID cannot be null");
 
         Book book = bookRepository.findById(bookId)
                 .orElseThrow(() -> new IllegalArgumentException("Book not found"));

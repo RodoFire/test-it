@@ -16,7 +16,7 @@ public class Book {
     private Status status = Status.DISPONIBLE;
 
     /** Dernier membre ayant emprunté le livre (null tant qu'il n'a jamais été emprunté). */
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "borrower_id")
     private Member borrower;
 
