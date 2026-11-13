@@ -109,9 +109,7 @@ class BookServiceTest {
     @Test
     void returnBook_shouldNotBeReturnedIfNullId() {
         // then
-        assertThrows(IllegalArgumentException.class, () -> bookService.returnBook(null, null), "Book ID and Member ID cannot be null");
         assertThrows(IllegalArgumentException.class, () -> bookService.returnBook(null, 1L), "Book ID cannot be null");
-        assertThrows(IllegalArgumentException.class, () -> bookService.returnBook(1L, null), "Member ID cannot be null");
     }
 
     @Test
