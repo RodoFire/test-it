@@ -41,6 +41,7 @@ public class BookServiceIT {
         book1 = bookService.borrowBook(book1.getId(), member1.getId());
 
         assertEquals(Status.EMPRUNTE, book1.getStatus());
+        assertEquals(member1.getId(), book1.getBorrower().getId());
 
     }
 
