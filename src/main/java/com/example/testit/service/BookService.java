@@ -52,6 +52,11 @@ public class BookService {
     }
 
     public Book borrowBook(Long bookId, Long memberId) {
+        if(bookId == null && memberId == null) throw new IllegalArgumentException("Book ID and Member ID cannot be null");
+        if (bookId == null) throw new IllegalArgumentException("Book ID cannot be null");
+        if (memberId == null) throw new IllegalArgumentException("Member ID cannot be null");
+
+
         Book book = bookRepository.findById(bookId)
                 .orElseThrow(() -> new IllegalArgumentException("Book not found"));
         Member member = memberRepository.findById(memberId)
@@ -71,6 +76,10 @@ public class BookService {
     }
 
     public Book returnBook(Long bookId, Long memberId) {
+        if(bookId == null && memberId == null) throw new IllegalArgumentException("Book ID and Member ID cannot be null");
+        if (bookId == null) throw new IllegalArgumentException("Book ID cannot be null");
+        if (memberId == null) throw new IllegalArgumentException("Member ID cannot be null");
+
         Book book = bookRepository.findById(bookId)
                 .orElseThrow(() -> new IllegalArgumentException("Book not found"));
         if (book.getStatus() != Status.EMPRUNTE) {
@@ -82,7 +91,7 @@ public class BookService {
         mailService.sendMail(member, "Livre rendu", "Merci d'avoir rendu '" + book.getTitle() + "'.");
         // Prévenir aussi le bibliothécaire référent si présent
         if (member.getReferent() != null) {
-            mailService.sendMail(member, "Livre rendu par un de vos membres",
+            mailService.sendMail(member.getReferent(), "Livre rendu par un de vos membres",
                     "'" + book.getTitle() + "' a été rendu par " + member.getUsername() + ".");
         }
         return saved;
